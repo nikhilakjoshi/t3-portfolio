@@ -1,12 +1,12 @@
-import { Rubik } from "@next/font/google";
 import React, { PropsWithChildren } from "react";
 import Link from "next/link";
 import { addFont } from "../utils";
 import { Menu } from "react-feather";
-
-const font = Rubik({ subsets: ["latin"] });
+import { useRouter } from "next/router";
+import clsx from "clsx";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+  const router = useRouter();
   return (
     <div className="flex h-screen flex-col">
       <nav className="flex justify-between py-8 px-8 lg:px-24">
@@ -17,14 +17,24 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           <span
             className={addFont(["text-xl font-medium tracking-wide text-text"])}
           >
-            Nikhil Joshi
+            <Link href="/">Nikhil Joshi</Link>
           </span>
         </div>
         <div className={addFont(["links hidden gap-8 text-lg lg:flex"])}>
-          <Link href="/blog" className="transition-colors hover:text-primary">
+          <Link
+            href="/blog"
+            className={clsx("transition-colors hover:text-primary", [
+              router.asPath === "/blog" && "text-sky-600",
+            ])}
+          >
             Blog
           </Link>
-          <Link href="/about" className="transition-colors hover:text-primary">
+          <Link
+            href="/about"
+            className={clsx("transition-colors hover:text-primary", [
+              router.asPath === "/about" && "text-sky-600",
+            ])}
+          >
             About
           </Link>
           {/* <Link href="/#home">Projects</Link> */}

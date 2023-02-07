@@ -1,14 +1,10 @@
 import { type NextPage } from "next";
 import { SEO } from "../common";
-import { Rubik } from "@next/font/google";
 import Layout from "../layouts";
 import Image from "next/image";
-import clsx from "clsx";
 import { addFont } from "../utils";
 import { projects } from "../constants";
 import Project from "./_project";
-
-const rubik = Rubik({ subsets: ["latin"] });
 
 const Home: NextPage = () => {
   return (

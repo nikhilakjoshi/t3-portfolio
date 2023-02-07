@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export const APP_NAME = "Nikhil Joshi | Portfolio";
+export const APP_NAME = "Nikhil Joshi";
 export const APP_DESCRIPTION =
   "I'm a full stack engineer, with experience in building web apps that solve unique business requirements and help deliver value to a product that pushes a business to its heights";
 export const APP_URL = "https://nikhilakjoshi.xyz";
