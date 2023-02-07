@@ -1,12 +1,14 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import Link from "next/link";
 import { addFont } from "../utils";
-import { Menu } from "react-feather";
+import { Menu, X } from "react-feather";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { CSSTransition } from "react-transition-group";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
+  const [show, setShow] = useState<boolean>(false);
   return (
     <div className="flex h-screen flex-col">
       <nav className="flex justify-between py-8 px-8 lg:px-24">
@@ -41,10 +43,44 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </Link>
           {/* <Link href="/#home">Projects</Link> */}
         </div>
-        <button className="lg:hidden">
+        <button onClick={() => setShow(true)} className="lg:hidden">
           <Menu />
         </button>
       </nav>
+      {/* // ! Menu */}
+      <CSSTransition
+        in={show}
+        unmountOnExit
+        classNames="slideIn"
+        timeout={300}
+        addEndListener={(n, d) => n.addEventListener("transitionend", d, false)}
+      >
+        <div className="fixed inset-0 z-50 grid h-screen w-screen place-items-center border bg-white text-2xl shadow-lg">
+          <ul className="flex flex-col justify-center gap-8">
+            <Link
+              href="/blog"
+              onClick={() => setShow(false)}
+              className={clsx("transition-colors hover:text-primary", [
+                router.asPath === "/blog" && "text-sky-600",
+              ])}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setShow(false)}
+              className={clsx("transition-colors hover:text-primary", [
+                router.asPath === "/about" && "text-sky-600",
+              ])}
+            >
+              About
+            </Link>
+          </ul>
+          <button onClick={() => setShow(false)}>
+            <X />
+          </button>
+        </div>
+      </CSSTransition>
       <React.Fragment>{children}</React.Fragment>
       <footer className="flex justify-between py-8 px-8 lg:px-24">
         <div className="title flex gap-4">
@@ -69,6 +105,13 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
               Contact
             </span>
             <div className="links mt-8 mb-12 flex flex-col gap-4 text-lg font-medium tracking-wide lg:flex-row lg:gap-12 lg:text-2xl">
+              <Link
+                href="https://twitter.com/nikhilakjoshi"
+                target="_blank"
+                className="transition-colors duration-500 hover:text-primary"
+              >
+                Twitter
+              </Link>
               <Link
                 href="https://www.linkedin.com/in/nikhilakjoshi/"
                 target="_blank"

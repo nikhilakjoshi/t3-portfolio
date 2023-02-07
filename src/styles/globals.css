@@ -5,3 +5,30 @@
 body {
   @apply bg-white;
 }
+
+.slideIn-enter {
+  opacity: 0;
+  transform: translateX(15px);
+}
+.slideIn-enter-active {
+  opacity: 0.95;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.slideIn-enter-done {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.slideIn-exit {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.slideIn-exit-active {
+  opacity: 0.05;
+  transform: translateX(7.5px);
+  transition: opacity 300ms, transform 300ms;
+}
+.slideIn-exit-done {
+  opacity: 0;
+  transform: translateX(15px);
+}
