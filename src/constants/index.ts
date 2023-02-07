@@ -50,7 +50,7 @@ export const projects = [
   {
     id: 4,
     title: "Covid 19 Vaccine Slots India",
-    subtitle: "Healt & COVID-19",
+    subtitle: "Health & COVID-19",
     description: [
       "A site built to have a quick glance at the Covid 19 vaccine slots making use of the Indian government's public COWIN apis. I built this initially only for my family and myself when searching via the Aarogyasetu app was a bit time consuming",
       "But then I ended up spending a bit more time to make any location/ hospital conducting vaccine drives searchable.",
