@@ -1,7 +1,8 @@
 import React from "react";
-import { ArrowRight } from "react-feather";
+import { ArrowRight, Lock } from "react-feather";
 import Image from "next/image";
 import { projects } from "../constants";
+import Link from "next/link";
 
 const Project: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
   return (
@@ -26,13 +27,7 @@ const Project: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
               {project.subtitle}
             </span>
             <div className="actions mt-8 lg:mt-auto">
-              <button className="group flex items-center gap-1 text-primary">
-                <span className="text-lg font-medium">View Project</span>
-                <ArrowRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </button>
+              <SmartLink href={project.projLink} />
             </div>
           </div>
         </div>
@@ -60,6 +55,33 @@ const Project: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
       </div>
       <div className="border-b lg:mx-8"></div>
     </React.Fragment>
+  );
+};
+
+const SmartLink: React.FC<{ href: string }> = ({ href }) => {
+  if (href === "#" || href === "")
+    return (
+      <button
+        disabled
+        className="group flex items-center gap-1 text-primary disabled:text-gray-500 disabled:text-opacity-50 disabled:line-through"
+      >
+        <span className="text-lg font-medium">View Project</span>
+        <Lock
+          size={16}
+          className="transition-transform group-hover:translate-x-1 group-disabled:translate-x-0 group-disabled:transition-none"
+        />
+      </button>
+    );
+  return (
+    <Link href={href} target="_blank">
+      <button className="group flex items-center gap-1 text-primary disabled:text-gray-500 disabled:text-opacity-50 disabled:line-through">
+        <span className="text-lg font-medium">View Project</span>
+        <ArrowRight
+          size={16}
+          className="transition-transform group-hover:translate-x-1 group-disabled:translate-x-0 group-disabled:transition-none"
+        />
+      </button>
+    </Link>
   );
 };
 

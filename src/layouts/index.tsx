@@ -15,7 +15,9 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
             <circle cx="50%" cy="50%" r="10" className="fill-primary" />
           </svg>
           <span
-            className={addFont(["text-xl font-medium tracking-wide text-text"])}
+            className={addFont([
+              "text-2xl font-medium tracking-wide text-text",
+            ])}
           >
             <Link href="/">Nikhil Joshi</Link>
           </span>
