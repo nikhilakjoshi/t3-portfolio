@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { InferGetStaticPropsType, type NextPage } from "next";
 import { SEO } from "../common";
 import Layout from "../layouts";
 import Image from "next/image";
@@ -6,7 +6,22 @@ import { addFont } from "../utils";
 import { projects } from "../constants";
 import Project from "./_project";
 
-const Home: NextPage = () => {
+import { GetStaticProps } from "next";
+
+export const getStaticProps: GetStaticProps<{
+  projects: typeof projects;
+}> = () => {
+  const projs = projects;
+  return {
+    props: {
+      projects: projs,
+    },
+  };
+};
+
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  projects,
+}) => {
   return (
     <>
       <SEO />
