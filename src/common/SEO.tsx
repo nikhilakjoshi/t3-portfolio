@@ -30,7 +30,8 @@ const SEO = ({
 
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:creator" content="@nikhilakjoshi" />
-      <meta property="twitter:title" content={title} />
+      <meta property="twitter:title" content={finalTitle} />
+      <meta property="twitter:text:title" content={finalTitle} />
       <meta property="twitter:description" content={description} />
       <meta name="twitter:site" content={siteTitle} />
       <meta name="twitter:url" content={APP_URL} />
