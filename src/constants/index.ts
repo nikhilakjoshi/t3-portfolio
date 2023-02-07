@@ -16,6 +16,7 @@ export const projects = [
       "Vercel",
       "Framer motion",
     ],
+    imageLink: "https://imgur.com/TEbANKp.png",
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ export const projects = [
     github: "",
     projLink: "",
     techStack: ["React JS", "Tailwind Css", "Next JS", "Vercel"],
+    imageLink: "https://imgur.com/Cqr7d7W.png",
   },
   {
     id: 3,
@@ -46,6 +48,7 @@ export const projects = [
       "Next JS",
       "Vercel",
     ],
+    imageLink: "https://imgur.com/Rv8pXJt.png",
   },
   {
     id: 4,
@@ -58,5 +61,6 @@ export const projects = [
     github: "",
     projLink: "",
     techStack: ["React JS", "Tailwind Css", "Next JS", "Vercel"],
+    imageLink: "https://imgur.com/kwizgiy.png",
   },
 ];

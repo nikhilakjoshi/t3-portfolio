@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight } from "react-feather";
+import Image from "next/image";
 import { projects } from "../constants";
 
 const Project: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
@@ -43,6 +44,18 @@ const Project: React.FC<{ project: (typeof projects)[0] }> = ({ project }) => {
             {item}
           </p>
         ))}
+      </div>
+      <div className="lg:col-span-2">
+        <div className="imageWrapper overflow-hidden">
+          <Image
+            src={project.imageLink}
+            alt={project.title}
+            // fill
+            width={1600}
+            height={1000}
+            className="aspect-[16/10]"
+          />
+        </div>
       </div>
     </div>
   );
