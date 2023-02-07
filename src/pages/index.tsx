@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             </div>
           </section>
           <div className="border-b lg:mx-8"></div>
-          <section className="projects my-24 mx-auto max-w-screen-lg px-8">
+          <section className="projects my-24">
             {projects.map((project) => (
               <Project key={project.id} project={project} />
             ))}

@@ -63,4 +63,29 @@ export const projects = [
     techStack: ["React JS", "Tailwind Css", "Next JS", "Vercel"],
     imageLink: "https://imgur.com/kwizgiy.png",
   },
+  {
+    id: 5,
+    title: "Hiker",
+    subtitle: "Leisure & Travel",
+    description: [
+      "A mock site to showcase a website that helps organise treks and tours showcasing the different packages etc.",
+    ],
+    github: "",
+    projLink: "",
+    techStack: ["React JS", "Tailwind Css", "Next JS", "Vercel"],
+    imageLink: "https://imgur.com/db20pNH.png",
+  },
+  {
+    id: 6,
+    title: "Apartment Expense Tracker",
+    subtitle: "Tools & Utility",
+    description: [
+      "A Site/Tool I built for myself to keep track of all expenses made as a part for the maintenance of the apartment complex.",
+      "This has substantially reduced my tendancy to miss expenses and cause a great deal of problem during reconciliation.",
+    ],
+    github: "",
+    projLink: "",
+    techStack: ["React JS", "Tailwind Css", "Next JS", "Vercel"],
+    imageLink: "https://imgur.com/lQkSl2E.png",
+  },
 ];
