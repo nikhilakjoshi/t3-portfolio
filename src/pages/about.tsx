@@ -27,15 +27,16 @@ const About: NextPage = () => {
             <div className="flex flex-col">
               <h1 className="mb-8 text-3xl font-medium lg:text-5xl">
                 <span className="leading-tight">
-                  Hi, my name is Nikhil. I'm a software delveloper based in
+                  Hi, my name is Nikhil. I&apos;m a software delveloper based in
                   Bangalore, India.
                 </span>
               </h1>
               <p className="text-lg font-light lg:text-2xl">
                 <span className="leading-relaxed">
-                  I'm a full stack engineer, with experience in building web
-                  apps that solve unique business requirements and help deliver
-                  value to a product that pushes a business to its heights
+                  I&apos;m a full stack engineer, with experience in building
+                  web apps that solve unique business requirements and help
+                  deliver value to a product that pushes a business to its
+                  heights
                 </span>
               </p>
             </div>

@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                   "mt-2 text-4xl leading-snug text-text lg:mt-6 lg:text-5xl",
                 ])}
               >
-                I'm Nikhil Joshi, I love building tools on the web.
+                I&apos;m Nikhil Joshi, I love building tools on the web.
               </h1>
             </div>
           </section>
