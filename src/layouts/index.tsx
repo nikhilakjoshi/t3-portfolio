@@ -26,7 +26,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
         <div className={addFont(["links hidden gap-8 text-lg lg:flex"])}>
           <Link
-            href="/blog"
+            href="/blogs"
             className={clsx("transition-colors hover:text-primary", [
               router.asPath === "/blog" && "text-sky-600",
             ])}
@@ -58,7 +58,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         <div className="fixed inset-0 z-50 grid h-screen w-screen place-items-center border bg-white text-2xl shadow-lg">
           <ul className="flex flex-col justify-center gap-8">
             <Link
-              href="/blog"
+              href="/blogs"
               onClick={() => setShow(false)}
               className={clsx("transition-colors hover:text-primary", [
                 router.asPath === "/blog" && "text-sky-600",

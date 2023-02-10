@@ -7,6 +7,8 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
+  NOTION_SECRET_KEY: z.string(),
+  NOTION_DB_ID: z.string(),
 });
 
 /**
@@ -16,6 +18,8 @@ export const serverSchema = z.object({
  */
 export const serverEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  NOTION_SECRET_KEY: process.env.NOTION_SECRET_KEY,
+  NOTION_DB_ID: process.env.NOTION_DB_ID,
 };
 
 /**
