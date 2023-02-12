@@ -15,7 +15,9 @@ import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoi
 
 const font = Rubik({ subsets: ["latin"] });
 
-export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
+export const getStaticPaths: GetStaticPaths<{
+  slug: string;
+}> = async () => {
   const notion = new Client({
     auth: serverEnv.NOTION_SECRET_KEY,
   });
@@ -30,7 +32,7 @@ export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
       const page: any = result;
       return {
         params: {
-          id: page.id as string,
+          slug: page.properties.slug.rich_text[0].plain_text as string,
         },
       };
     });
@@ -42,31 +44,43 @@ export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
 };
 
 interface StaticProps extends ParsedUrlQuery {
-  id: string;
+  slug: string;
 }
 
 export const getStaticProps: GetStaticProps<
-  { blog: ListBlockChildrenResponse },
+  { blog: ListBlockChildrenResponse; title: string },
   StaticProps
 > = async ({ params }) => {
   const notion = new Client({
     auth: serverEnv.NOTION_SECRET_KEY,
   });
 
-  const resp = await notion.blocks.children.list({
-    block_id: params?.id!,
+  const DBresp = await notion.databases.query({
+    database_id: serverEnv.NOTION_DB_ID!,
+    filter: {
+      property: "slug",
+      rich_text: {
+        equals: params?.slug!,
+      },
+    },
   });
+
+  const resp = await notion.blocks.children.list({
+    block_id: DBresp.results[0]?.id!,
+  });
+  const dbResp = DBresp as any;
   return {
     props: {
       blog: resp,
+      title: dbResp.results[0].properties.Name?.title[0].plain_text,
     },
   };
 };
 
 const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blog,
+  title,
 }) => {
-  console.log({ blog });
   return (
     <>
       <SEO />

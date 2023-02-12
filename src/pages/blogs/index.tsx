@@ -18,6 +18,7 @@ interface BlogsProps {
     created: string;
     blogId: string;
     tags: string[];
+    slug: string;
   }[];
 }
 
@@ -28,6 +29,12 @@ export const getStaticProps: GetStaticProps<BlogsProps> = async () => {
 
   const resp = await notion.databases.query({
     database_id: serverEnv.NOTION_DB_ID!,
+    filter: {
+      property: "Status",
+      status: {
+        equals: "Done",
+      },
+    },
   });
 
   const blogs = resp.results
@@ -39,6 +46,7 @@ export const getStaticProps: GetStaticProps<BlogsProps> = async () => {
         created: moment(page.properties.Date.date.start).format("DD MMM YYYY"),
         blogId: page.id,
         tags: page.properties.Tags?.multi_select?.map((a: any) => a.name) ?? [],
+        slug: page.properties.slug.rich_text[0].plain_text,
       };
     });
 
@@ -67,7 +75,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               {/* // ! Blogs */}
               {blogs.map((blog) => (
                 <div className="blog text-text" key={blog.blogId}>
-                  <Link href={`/blogs/${blog.blogId}`} className="group">
+                  <Link href={`/blogs/${blog.slug}`} className="group">
                     <h1
                       title={blog.title}
                       className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-medium transition-colors group-hover:text-primary"
