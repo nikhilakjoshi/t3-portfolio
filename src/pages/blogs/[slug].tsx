@@ -12,6 +12,8 @@ import clsx from "clsx";
 import { Rubik } from "@next/font/google";
 import { ParsedUrlQuery } from "querystring";
 import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
+import moment from "moment";
+import Image from "next/image";
 
 const font = Rubik({ subsets: ["latin"] });
 
@@ -48,7 +50,12 @@ interface StaticProps extends ParsedUrlQuery {
 }
 
 export const getStaticProps: GetStaticProps<
-  { blog: ListBlockChildrenResponse; title: string },
+  {
+    blog: ListBlockChildrenResponse;
+    title: string;
+    published: string;
+    cover: string;
+  },
   StaticProps
 > = async ({ params }) => {
   const notion = new Client({
@@ -72,20 +79,40 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       blog: resp,
+      cover: dbResp.results[0].cover?.external.url,
       title: dbResp.results[0].properties.Name?.title[0].plain_text,
+      published: moment(dbResp.results[0].properties.Date?.date.start).format(
+        "MMMM, DD, YYYY"
+      ),
     },
   };
 };
 
 const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   blog,
+  cover,
   title,
+  published,
 }) => {
   return (
     <>
       <SEO />
       <Layout>
-        <main className={clsx(font.className)}></main>
+        <main
+          className={clsx(font.className, "flex-grow px-8 text-text lg:px-24")}
+        >
+          <div className="data mt-24 mb-6 text-center text-sm text-text text-opacity-50">{`Published ${published}`}</div>
+          <h1 className="text-center text-5xl font-bold tracking-wide text-text">
+            {title}
+          </h1>
+          <Image
+            src={cover}
+            width={1584}
+            height={396}
+            alt="cover-photo"
+            className="mx-auto my-12 aspect-[1584/396] max-w-screen-xl rounded-lg object-cover object-bottom"
+          />
+        </main>
       </Layout>
     </>
   );

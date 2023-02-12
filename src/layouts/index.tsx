@@ -28,9 +28,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           <Link
             href="/blogs"
             className={clsx("transition-colors hover:text-primary", [
-              (router.asPath === "/blogs" ||
-                router.pathname === "/blogs/[slug]") &&
-                "text-sky-600",
+              router.asPath === "/blogs" && "text-sky-600",
             ])}
           >
             Blog
