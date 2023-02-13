@@ -7,6 +7,9 @@ module.exports = {
         primary: "#3765f7",
         text: "#2e2a29",
       },
+      fontFamily: {
+        jet: ["'JetBrains Mono'", "monospace"],
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],

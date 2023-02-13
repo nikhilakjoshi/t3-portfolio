@@ -5,12 +5,9 @@ import { Client } from "@notionhq/client";
 import { serverEnv } from "../../env/schema.mjs";
 import moment from "moment";
 import clsx from "clsx";
-import { Rubik } from "@next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar } from "react-feather";
-
-const font = Rubik({ subsets: ["latin"] });
 
 interface BlogsProps {
   blogs: {
@@ -64,12 +61,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <>
       <SEO />
       <Layout>
-        <div
-          className={clsx(
-            "grid grid-cols-3 gap-4 lg:my-8 lg:flex-grow lg:px-24",
-            font.className
-          )}
-        >
+        <div className={"grid grid-cols-3 gap-4 lg:my-8 lg:flex-grow lg:px-24"}>
           <div className="order-2 col-span-3 lg:order-1 lg:col-span-2">
             <div className="w-full lg:w-[75%]">
               {/* // ! Blogs */}

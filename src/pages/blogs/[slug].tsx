@@ -8,14 +8,13 @@ import { SEO } from "../../common";
 import Layout from "../../layouts";
 import { Client } from "@notionhq/client";
 import { serverEnv } from "../../env/schema.mjs";
-import clsx from "clsx";
-import { Rubik } from "@next/font/google";
 import { ParsedUrlQuery } from "querystring";
 import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
 import moment from "moment";
 import Image from "next/image";
-
-const font = Rubik({ subsets: ["latin"] });
+import React from "react";
+import clsx from "clsx";
+import { getComponent } from "../../common/MarkdownComps";
 
 export const getStaticPaths: GetStaticPaths<{
   slug: string;
@@ -55,6 +54,7 @@ export const getStaticProps: GetStaticProps<
     title: string;
     published: string;
     cover: string;
+    tags: string[];
   },
   StaticProps
 > = async ({ params }) => {
@@ -81,6 +81,10 @@ export const getStaticProps: GetStaticProps<
       blog: resp,
       cover: dbResp.results[0].cover?.external.url,
       title: dbResp.results[0].properties.Name?.title[0].plain_text,
+      tags:
+        dbResp.results[0].properties.Tags?.multi_select?.map(
+          (a: any) => a.name
+        ) ?? [],
       published: moment(dbResp.results[0].properties.Date?.date.start).format(
         "MMMM, DD, YYYY"
       ),
@@ -93,25 +97,47 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   cover,
   title,
   published,
+  tags,
 }) => {
   return (
     <>
       <SEO />
       <Layout>
-        <main
-          className={clsx(font.className, "flex-grow px-8 text-text lg:px-24")}
-        >
-          <div className="data mt-24 mb-6 text-center text-sm text-text text-opacity-50">{`Published ${published}`}</div>
-          <h1 className="text-center text-5xl font-bold tracking-wide text-text">
-            {title}
-          </h1>
-          <Image
-            src={cover}
-            width={1584}
-            height={396}
-            alt="cover-photo"
-            className="mx-auto my-12 aspect-[1584/396] max-w-screen-xl rounded-lg object-cover object-bottom"
-          />
+        <main className={"flex-grow text-text"}>
+          <div className="metaData px-8 lg:px-24">
+            <div className="data mt-24 mb-6 text-center text-sm text-text text-opacity-50">{`Published ${published}`}</div>
+            <h1 className="text-center text-3xl font-bold tracking-wide text-text lg:text-5xl">
+              {title}
+            </h1>
+            <div className="mx-auto mt-8 flex w-full items-center justify-center gap-1">
+              {tags.map((a, i) => (
+                <span
+                  className="rounded-xl bg-green-100 py-1 px-4 text-xs tracking-wide text-green-600"
+                  key={`tag-${i}`}
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="lg:px-24">
+            <Image
+              src={cover}
+              width={1584}
+              height={594}
+              alt="cover-photo"
+              className="mx-auto my-12 aspect-[1584/594] w-full object-cover object-center lg:max-w-screen-xl lg:rounded-lg "
+            />
+          </div>
+          <article
+            className={clsx("mx-auto space-y-4 px-8 lg:max-w-screen-lg")}
+          >
+            {blog.results.map((block) => (
+              <React.Fragment key={block.id}>
+                {getComponent(block)}
+              </React.Fragment>
+            ))}
+          </article>
         </main>
       </Layout>
     </>
