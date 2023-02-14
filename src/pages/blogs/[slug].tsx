@@ -130,7 +130,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Layout>
         <main className={"flex-grow text-text"}>
           <div className="metaData px-8 lg:px-24">
-            <div className="data mb-6 text-center text-sm text-text text-opacity-50 lg:mt-24">{`Published ${published}`}</div>
+            <div className="data mb-2 text-sm text-text text-opacity-50 lg:mb-6 lg:mt-24 lg:text-center">{`Published ${published}`}</div>
             <h1 className="text-left text-3xl font-bold tracking-wide text-text lg:text-center lg:text-5xl">
               {title}
             </h1>

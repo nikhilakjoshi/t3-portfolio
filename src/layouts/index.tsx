@@ -82,7 +82,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         </div>
       </CSSTransition>
       <React.Fragment>{children}</React.Fragment>
-      <footer className="flex justify-between py-8 px-8 lg:px-24">
+      <footer className="mt-auto flex justify-between py-8 px-8 lg:px-24">
         <div className="title flex gap-4">
           <svg
             preserveAspectRatio="none"

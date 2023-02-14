@@ -83,7 +83,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Layout>
         <div className={"grid grid-cols-3 gap-4 lg:my-8 lg:flex-grow lg:px-24"}>
           <div className="order-2 col-span-3 lg:order-1 lg:col-span-2">
-            <div className="w-full lg:w-[75%]">
+            <div className="w-full px-8 lg:w-[75%] lg:px-0">
               {/* // ! Blogs */}
               {blogs.map((blog) => (
                 <div className="blog text-text" key={blog.blogId}>
