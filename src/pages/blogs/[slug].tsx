@@ -75,6 +75,12 @@ export const getStaticProps: GetStaticProps<
   const resp = await notion.blocks.children.list({
     block_id: DBresp.results[0]?.id!,
   });
+  // const mappedRes = resp.results.map(block => {
+  //   if(block.)
+  //   return {
+  //     ...block
+  //   }
+  // })
   const dbResp = DBresp as any;
   return {
     props: {
@@ -99,6 +105,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   published,
   tags,
 }) => {
+  console.log(blog);
   return (
     <>
       <SEO />
@@ -129,9 +136,7 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               className="mx-auto my-12 aspect-[1584/594] w-full object-cover object-center lg:max-w-screen-xl lg:rounded-lg "
             />
           </div>
-          <article
-            className={clsx("mx-auto space-y-4 px-8 lg:max-w-screen-lg")}
-          >
+          <article className={clsx("mx-auto px-8 lg:max-w-screen-lg")}>
             {blog.results.map((block) => (
               <React.Fragment key={block.id}>
                 {getComponent(block)}

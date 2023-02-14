@@ -7,7 +7,7 @@ const rubik = Rubik({ subsets: ["latin"] });
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <div className={rubik.className}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </div>
   );
 };
