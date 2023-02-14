@@ -8,6 +8,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar } from "react-feather";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 interface BlogsProps {
   blogs: {
@@ -37,13 +38,32 @@ export const getStaticProps: GetStaticProps<BlogsProps> = async () => {
   const blogs = resp.results
     .filter((a) => a.object === "page")
     .map((result) => {
-      const page: any = result;
+      const firstPage = result as PageObjectResponse;
+      const title =
+        firstPage?.properties.Name?.type === "title"
+          ? firstPage?.properties.Name?.title[0]?.plain_text ?? "dummy"
+          : "dummy";
+      const tags =
+        firstPage?.properties.Tags?.type === "multi_select"
+          ? firstPage.properties.Tags.multi_select.map((a) => a.name)
+          : [];
+      const created =
+        firstPage?.properties.Date?.type === "date"
+          ? moment(firstPage.properties.Date.date?.start).format(
+              "MMMM, DD, YYYY"
+            )
+          : moment().format("MMMM, DD, YYYY");
+      const slug =
+        firstPage?.properties.slug?.type === "rich_text"
+          ? firstPage.properties.slug.rich_text[0]?.plain_text ?? "dummy"
+          : "dummy";
+
       return {
-        title: page.properties.Name?.title[0].plain_text,
-        created: moment(page.properties.Date.date.start).format("DD MMM YYYY"),
-        blogId: page.id,
-        tags: page.properties.Tags?.multi_select?.map((a: any) => a.name) ?? [],
-        slug: page.properties.slug.rich_text[0].plain_text,
+        title,
+        created,
+        blogId: firstPage.id,
+        tags,
+        slug,
       };
     });
 

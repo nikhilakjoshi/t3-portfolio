@@ -9,7 +9,10 @@ import Layout from "../../layouts";
 import { Client } from "@notionhq/client";
 import { serverEnv } from "../../env/schema.mjs";
 import { ParsedUrlQuery } from "querystring";
-import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
+import {
+  ListBlockChildrenResponse,
+  PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 import moment from "moment";
 import Image from "next/image";
 import React from "react";
@@ -30,10 +33,14 @@ export const getStaticPaths: GetStaticPaths<{
   const blogs = resp.results
     .filter((a) => a.object === "page")
     .map((result) => {
-      const page: any = result;
+      const res: PageObjectResponse = result as PageObjectResponse;
+      const slug =
+        res.properties.slug?.type === "rich_text"
+          ? res.properties.slug.rich_text[0]?.plain_text ?? "dummy"
+          : "dummy";
       return {
         params: {
-          slug: page.properties.slug.rich_text[0].plain_text as string,
+          slug,
         },
       };
     });
@@ -67,33 +74,42 @@ export const getStaticProps: GetStaticProps<
     filter: {
       property: "slug",
       rich_text: {
-        equals: params?.slug!,
+        equals: params?.slug as string,
       },
     },
   });
 
   const resp = await notion.blocks.children.list({
-    block_id: DBresp.results[0]?.id!,
+    block_id: DBresp.results[0]?.id as string,
   });
-  // const mappedRes = resp.results.map(block => {
-  //   if(block.)
-  //   return {
-  //     ...block
-  //   }
-  // })
-  const dbResp = DBresp as any;
+
+  const dbResp = DBresp.results.filter(
+    (a) => a.object === "page"
+  ) as PageObjectResponse[];
+  const firstPage = dbResp[0];
+  const cover =
+    firstPage?.cover?.type === "external"
+      ? firstPage.cover.external.url
+      : "dummy";
+  const title =
+    firstPage?.properties.Name?.type === "title"
+      ? firstPage?.properties.Name?.title[0]?.plain_text ?? "dummy"
+      : "dummy";
+  const tags =
+    firstPage?.properties.Tags?.type === "multi_select"
+      ? firstPage.properties.Tags.multi_select.map((a) => a.name)
+      : [];
+  const published =
+    firstPage?.properties.Date?.type === "date"
+      ? moment(firstPage.properties.Date.date?.start).format("MMMM, DD, YYYY")
+      : moment().format("MMMM, DD, YYYY");
   return {
     props: {
       blog: resp,
-      cover: dbResp.results[0].cover?.external.url,
-      title: dbResp.results[0].properties.Name?.title[0].plain_text,
-      tags:
-        dbResp.results[0].properties.Tags?.multi_select?.map(
-          (a: any) => a.name
-        ) ?? [],
-      published: moment(dbResp.results[0].properties.Date?.date.start).format(
-        "MMMM, DD, YYYY"
-      ),
+      cover,
+      title,
+      tags,
+      published,
     },
   };
 };

@@ -120,9 +120,12 @@ export const getComponent: (
                 style={style}
               >
                 {tokens.map((line, i) => (
-                  <div {...getLineProps({ line, key: i })}>
+                  <div key={`comp-${i}`} {...getLineProps({ line, key: i })}>
                     {line.map((token, key) => (
-                      <span {...getTokenProps({ token, key })} />
+                      <span
+                        key={`spn-${key}`}
+                        {...getTokenProps({ token, key })}
+                      />
                     ))}
                   </div>
                 ))}
