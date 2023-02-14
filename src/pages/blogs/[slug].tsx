@@ -124,7 +124,6 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   published,
   tags,
 }) => {
-  console.log(blog);
   return (
     <>
       <SEO />
