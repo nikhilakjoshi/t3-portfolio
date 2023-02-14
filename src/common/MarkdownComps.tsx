@@ -144,9 +144,7 @@ export const getComponent: (
 
 const Paragraph: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <p className="my-4 text-sm tracking-wide text-text text-opacity-90 lg:text-base">
-      {children}
-    </p>
+    <p className="my-4 tracking-wide text-text text-opacity-90">{children}</p>
   );
 };
 

@@ -18,6 +18,9 @@ import Image from "next/image";
 import React from "react";
 import clsx from "clsx";
 import { getComponent } from "../../common/MarkdownComps";
+import { Merriweather } from "@next/font/google";
+
+const serif = Merriweather({ subsets: ["latin"], weight: "400" });
 
 export const getStaticPaths: GetStaticPaths<{
   slug: string;
@@ -128,11 +131,11 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Layout>
         <main className={"flex-grow text-text"}>
           <div className="metaData px-8 lg:px-24">
-            <div className="data mt-24 mb-6 text-center text-sm text-text text-opacity-50">{`Published ${published}`}</div>
-            <h1 className="text-center text-3xl font-bold tracking-wide text-text lg:text-5xl">
+            <div className="data mb-6 text-center text-sm text-text text-opacity-50 lg:mt-24">{`Published ${published}`}</div>
+            <h1 className="text-left text-3xl font-bold tracking-wide text-text lg:text-center lg:text-5xl">
               {title}
             </h1>
-            <div className="mx-auto mt-8 flex w-full items-center justify-center gap-1">
+            <div className="mx-auto mt-4 flex w-full items-center gap-1 lg:mt-8 lg:justify-center">
               {tags.map((a, i) => (
                 <span
                   className="rounded-xl bg-green-100 py-1 px-4 text-xs tracking-wide text-green-600"
@@ -149,10 +152,12 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               width={1584}
               height={594}
               alt="cover-photo"
-              className="mx-auto my-12 aspect-[1584/594] w-full object-cover object-center lg:max-w-screen-xl lg:rounded-lg "
+              className="mx-auto my-6 aspect-[1584/594] w-full object-cover object-center lg:my-12 lg:max-w-screen-xl lg:rounded-lg "
             />
           </div>
-          <article className={clsx("mx-auto px-8 lg:max-w-screen-lg")}>
+          <article
+            className={clsx("mx-auto px-8 font-merry lg:max-w-screen-lg")}
+          >
             {blog.results.map((block) => (
               <React.Fragment key={block.id}>
                 {getComponent(block)}

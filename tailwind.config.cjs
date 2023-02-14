@@ -9,6 +9,7 @@ module.exports = {
       },
       fontFamily: {
         jet: ["'JetBrains Mono'", "monospace"],
+        merry: ["'Merriweather'", "serif"],
       },
     },
   },

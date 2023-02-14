@@ -104,7 +104,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
             >
               Contact
             </span>
-            <div className="links mt-8 mb-12 flex flex-col gap-4 text-lg font-medium tracking-wide lg:flex-row lg:gap-12 lg:text-2xl">
+            <div className="links mt-8 flex flex-col gap-4 text-lg font-medium tracking-wide lg:mb-12 lg:flex-row lg:gap-12 lg:text-2xl">
               <Link
                 href="https://twitter.com/nikhilakjoshi"
                 target="_blank"
