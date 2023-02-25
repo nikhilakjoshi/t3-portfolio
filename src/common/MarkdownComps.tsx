@@ -69,7 +69,7 @@ export const getComponent: (
         <Link
           href={url}
           target="_blank"
-          className="text-sm text-sky-600 transition-colors hover:text-primary hover:underline lg:text-base"
+          className="break-words text-sm text-sky-600 transition-colors hover:text-primary hover:underline lg:text-base"
         >
           {url}
         </Link>
