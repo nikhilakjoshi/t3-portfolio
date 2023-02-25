@@ -63,6 +63,7 @@ export const getStaticProps: GetStaticProps<
     cover: string;
     tags: string[];
     description: string;
+    ogImage: string;
   },
   StaticProps
 > = async ({ params }) => {
@@ -108,6 +109,10 @@ export const getStaticProps: GetStaticProps<
     firstPage?.properties.description?.type === "rich_text"
       ? firstPage?.properties.description?.rich_text[0]?.plain_text ?? "dummy"
       : "dummy";
+  const ogImage =
+    firstPage?.properties.ogImage?.type === "rich_text"
+      ? firstPage?.properties.ogImage?.rich_text[0]?.plain_text ?? "dummy"
+      : "dummy";
   return {
     props: {
       blog: resp,
@@ -116,6 +121,7 @@ export const getStaticProps: GetStaticProps<
       tags,
       published,
       description,
+      ogImage,
     },
   };
 };
@@ -127,10 +133,11 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   published,
   tags,
   description,
+  ogImage,
 }) => {
   return (
     <>
-      <SEO title={title} ogImage={cover} description={description} />
+      <SEO title={title} ogImage={ogImage} description={description} />
       <Layout>
         <main className={"flex-grow pb-48 text-text"}>
           <div className="metaData px-8 lg:px-24">
