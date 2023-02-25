@@ -18,9 +18,6 @@ import Image from "next/image";
 import React from "react";
 import clsx from "clsx";
 import { getComponent } from "../../common/MarkdownComps";
-import { Merriweather } from "@next/font/google";
-
-const serif = Merriweather({ subsets: ["latin"], weight: "400" });
 
 export const getStaticPaths: GetStaticPaths<{
   slug: string;
@@ -65,6 +62,7 @@ export const getStaticProps: GetStaticProps<
     published: string;
     cover: string;
     tags: string[];
+    description: string;
   },
   StaticProps
 > = async ({ params }) => {
@@ -106,6 +104,10 @@ export const getStaticProps: GetStaticProps<
     firstPage?.properties.Date?.type === "date"
       ? moment(firstPage.properties.Date.date?.start).format("MMMM, DD, YYYY")
       : moment().format("MMMM, DD, YYYY");
+  const description =
+    firstPage?.properties.description?.type === "rich_text"
+      ? firstPage?.properties.description?.rich_text[0]?.plain_text ?? "dummy"
+      : "dummy";
   return {
     props: {
       blog: resp,
@@ -113,6 +115,7 @@ export const getStaticProps: GetStaticProps<
       title,
       tags,
       published,
+      description,
     },
   };
 };
@@ -123,12 +126,13 @@ const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   title,
   published,
   tags,
+  description,
 }) => {
   return (
     <>
-      <SEO />
+      <SEO title={title} ogImage={cover} description={description} />
       <Layout>
-        <main className={"flex-grow text-text"}>
+        <main className={"flex-grow pb-48 text-text"}>
           <div className="metaData px-8 lg:px-24">
             <div className="data mb-2 text-sm text-text text-opacity-50 lg:mb-6 lg:mt-24 lg:text-center">{`Published ${published}`}</div>
             <h1 className="text-left text-3xl font-bold tracking-wide text-text lg:text-center lg:text-5xl">

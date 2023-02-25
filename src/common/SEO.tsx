@@ -6,10 +6,18 @@ export const APP_DESCRIPTION =
 export const APP_URL = "https://nikhilakjoshi.xyz";
 const OG_IMAGE_URL = `https://imgur.com/KEBIkSG.png`;
 
-const SEO = ({
+interface SEOProps {
+  title?: string;
+  siteTitle?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const SEO: React.FC<SEOProps> = ({
   title = "",
   siteTitle = APP_NAME,
   description = APP_DESCRIPTION,
+  ogImage = OG_IMAGE_URL,
 }) => {
   const finalTitle = title ? `${title} | ${siteTitle}` : siteTitle;
   return (
@@ -23,7 +31,7 @@ const SEO = ({
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={siteTitle} />
       <meta property="og:url" content={APP_URL} />
-      <meta property="og:image" content={OG_IMAGE_URL} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="628" />
       <meta property="og:locale" content="en_US" />
@@ -35,7 +43,7 @@ const SEO = ({
       <meta property="twitter:description" content={description} />
       <meta name="twitter:site" content={siteTitle} />
       <meta name="twitter:url" content={APP_URL} />
-      <meta name="twitter:image" content={OG_IMAGE_URL} />
+      <meta name="twitter:image" content={ogImage} />
 
       <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
     </Head>
