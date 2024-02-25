@@ -21,7 +21,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["imgur.com", "source.unsplash.com"],
+    domains: ["i.imgur.com", "imgur.com", "source.unsplash.com"],
   },
 };
 export default config;

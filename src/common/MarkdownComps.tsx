@@ -85,8 +85,8 @@ export const getComponent: (
     case "numbered_list_item": {
       const node = blk.numbered_list_item.rich_text[0]?.plain_text;
       return (
-        <div className="listItem my-1 flex items-center text-sm lg:text-base">
-          <ChevronRight size={18} />
+        <div className="listItem my-1 flex items-center gap-2 text-text text-opacity-75 lg:text-lg">
+          <ChevronRight size={18} className="shrink-0" />
           <span>{node}</span>
         </div>
       );
@@ -95,8 +95,8 @@ export const getComponent: (
     case "bulleted_list_item": {
       const node = blk.bulleted_list_item.rich_text[0]?.plain_text;
       return (
-        <div className="listItem my-1 flex items-center text-sm lg:text-base">
-          <ChevronRight size={18} />
+        <div className="listItem my-1 flex items-center gap-2 text-text text-opacity-75 lg:text-lg">
+          <ChevronRight size={18} className="shrink-0" />
           <span>{node}</span>
         </div>
       );
